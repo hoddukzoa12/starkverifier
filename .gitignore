@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Solidity/Foundry build artifacts
+contracts/solidity/broadcast/
+contracts/solidity/cache/
+contracts/solidity/out/
+
+# Rust/Stylus build artifacts
+contracts/stylus/target/
