@@ -70,12 +70,16 @@ Real transaction measurements on Arbitrum Sepolia testnet:
 
 ### 🚀 Impact on Scalability
 
-At Depth 32, Solidity consumes **17.32M gas (54% of block limit)**, causing potential network congestion. Stylus consumes only **8.16M gas (25% of block limit)**, making large-scale ZK verification **sustainable** on the mainnet.
+**Why L2?** Heavy ZK verification on Ethereum Mainnet would consume entire blocks. By offloading to Arbitrum Stylus, we free up valuable L1 block space while inheriting Ethereum's security.
+
+At Depth 32, Solidity consumes **17.32M gas (54% of block limit)**, causing potential network congestion. Stylus consumes only **8.16M gas (25% of block limit)**, making large-scale ZK verification **sustainable**.
 
 | Metric | Solidity | Stylus | Improvement |
 |--------|----------|--------|-------------|
 | Block Usage (Depth 32) | 54% | 25% | **2.1x more headroom** |
 | Max Verifications/Block | ~1.8 | ~3.9 | **2.1x throughput** |
+
+> **L2 Scaling Strategy**: Offload compute-intensive verification to Arbitrum → Settle proofs on Ethereum → Best of both worlds (speed + security)
 
 ---
 
