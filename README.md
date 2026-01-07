@@ -6,6 +6,7 @@
 [![Solidity](https://img.shields.io/badge/Solidity-0.8.24-purple.svg)](https://soliditylang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black.svg)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
+[![circomlib](https://img.shields.io/badge/Poseidon-circomlib%20Compatible-green.svg)](https://github.com/iden3/circomlib)
 
 > **Mini STARK Verifier demonstrating ~2.1x gas savings on Arbitrum Stylus (Rust/WASM) compared to Solidity**
 
@@ -27,6 +28,7 @@ Built for **Arbitrum APAC Mini Hackathon 2026**
   - [Poseidon Hash Function](#poseidon-hash-function)
   - [Merkle Verification](#merkle-verification)
 - [Why Stylus is Faster](#why-stylus-is-faster)
+- [Security](#security)
 - [API Reference](#api-reference)
 - [Supported Wallets](#supported-wallets)
 - [Environment Variables](#environment-variables)
@@ -456,6 +458,53 @@ for i in 0..57 {
 
 #### 3. Memory Model
 EVM's memory expansion has quadratic cost growth. WASM uses a linear memory model with predictable costs.
+
+---
+
+## Security
+
+### 🔐 Cryptographic Verification
+
+Our Poseidon implementation is **verified against industry-standard test vectors** from [iden3/circomlib](https://github.com/iden3/circomlib), the most widely-used ZK library in production.
+
+#### Test Vector Verification
+
+```rust
+// Official circomlib test vector
+poseidon([1, 2]) = 0x115cc0f5e7d690413df64c6b9662e9cf2a3617f2743245519e19607a4417189a
+```
+
+| Verification | Status |
+|--------------|--------|
+| circomlib test vector match | ✅ **Passed** |
+| BN254 field arithmetic | ✅ **Verified** |
+| Round constants (195 values) | ✅ **Matches circomlib** |
+| MDS matrix | ✅ **Matches circomlib** |
+
+#### Implementation Audit Checklist
+
+| Component | Implementation | Security Status |
+|-----------|---------------|-----------------|
+| Field Prime | BN254 (alt_bn128) | ✅ Standard curve |
+| S-box | x^5 | ✅ Proven secure |
+| Rounds | 8 full + 57 partial | ✅ Matches spec |
+| Width | t=3 (2 inputs + capacity) | ✅ Standard config |
+
+### 🛡️ Smart Contract Security
+
+- **No external calls** - Pure computation, no reentrancy risk
+- **No storage manipulation** - Only verification state stored
+- **Deterministic execution** - Same inputs always produce same outputs
+- **No owner privileges** - Fully permissionless verification
+
+### ⚠️ Known Limitations
+
+| Limitation | Impact | Mitigation |
+|------------|--------|------------|
+| Testnet L1 gas = 0 | L1/L2 breakdown unavailable on Sepolia | Mainnet returns actual values |
+| No formal audit | Not production-ready | Use circomlib for production |
+
+> **Note**: This implementation is designed for demonstration and benchmarking purposes. For production ZK applications, use audited libraries like [circomlib](https://github.com/iden3/circomlib) or [arkworks](https://github.com/arkworks-rs).
 
 ---
 
