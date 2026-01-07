@@ -17,6 +17,7 @@ Built for **Arbitrum APAC Mini Hackathon 2026**
 ## Table of Contents
 
 - [Features](#features)
+- [The Paradigm Shift: No More Wrapping Tax](#-the-paradigm-shift-no-more-wrapping-tax)
 - [Benchmark Results](#benchmark-results)
 - [Architecture](#architecture)
 - [Tech Stack](#tech-stack)
@@ -39,13 +40,64 @@ Built for **Arbitrum APAC Mini Hackathon 2026**
 
 ## Features
 
+- **No Wrapping Tax** - Direct STARK verification without SNARK wrapping overhead
 - **~2.1x Gas Savings** - Merkle path verification using Stylus vs Solidity
-- **Real-time Gas Dashboard** - Live gas measurement and comparison charts
+- **Post-Quantum Ready** - Hash-based STARK security, no trusted setup required
 - **circomlib Compatible** - Poseidon hash function compatible with iden3/circomlib
 - **Merkle Proof Verification** - Variable depth support (8, 16, 32)
 - **Live on Arbitrum Sepolia** - Both contracts deployed and verifiable
 - **Modern Web3 Stack** - Next.js 16 + React 19 + thirdweb v5
 - **Multi-wallet Support** - MetaMask, Coinbase, Rabby, WalletConnect
+
+---
+
+## 🚀 The Paradigm Shift: No More Wrapping Tax
+
+### The Problem with Traditional ZK Rollups
+
+Standard ZK rollups wrap **STARK proofs inside SNARKs** (e.g., Groth16) to reduce on-chain verification costs. This "wrapping" introduces significant trade-offs:
+
+| Trade-off | Impact |
+|-----------|--------|
+| **Computational Overhead** | Extra proving time for the wrapping circuit |
+| **Trusted Setup Required** | Groth16 requires a ceremony (security assumption) |
+| **Lost Post-Quantum Resistance** | SNARKs are vulnerable to quantum attacks |
+| **Increased Complexity** | More code = more attack surface |
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    Legacy Approach (EVM)                         │
+│                                                                  │
+│   STARK Proof ──► Wrapping Circuit ──► SNARK Proof ──► EVM     │
+│                   (Slow, Trusted)       (Groth16)    (Expensive) │
+│                                                                  │
+│   ⚠️  Security compromised for gas savings                      │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                    Our Approach (Stylus)                         │
+│                                                                  │
+│   STARK Proof ─────────────────────────────────► Stylus (WASM)  │
+│                     Direct Verification              ⚡ Fast     │
+│                                                                  │
+│   ✅  Full security preserved, no compromises                   │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Why This Matters
+
+> **"We've been forced to sacrifice security (trustless setup) and future-proofing (post-quantum resistance) just because EVM gas was too expensive. Stylus changes everything."**
+
+With Stylus's **2.1x lower gas costs**, we can now verify **raw STARK proofs directly on-chain** without the wrapping overhead. This means:
+
+| Benefit | Description |
+|---------|-------------|
+| **No Trusted Setup** | Pure mathematics, no ceremony required |
+| **Post-Quantum Ready** | STARK's hash-based security survives quantum computers |
+| **Faster Finality** | Skip the wrapping step entirely |
+| **Simpler Architecture** | Less code, fewer bugs, easier audits |
+
+> **Key Insight**: This isn't just about saving gas. It's about **removing a fundamental architectural compromise** that the entire ZK ecosystem has been forced to accept.
 
 ---
 
