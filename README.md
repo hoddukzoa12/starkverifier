@@ -741,7 +741,7 @@ cargo test -- --nocapture
 
 ### Why ~2x Instead of 18x?
 
-[OpenZeppelin achieved 18x](https://blog.openzeppelin.com/porting-contracts-to-stylus) using **hand-optimized Montgomery arithmetic** - complex low-level code that requires cryptography expertise to write and maintain.
+[OpenZeppelin achieved 18x](https://www.openzeppelin.com/news/poseidon-go-brr-with-stylus-cryptographic-functions-are-18x-more-gas-efficient-via-rust-on-arbitrum) using **hand-optimized Montgomery arithmetic** - complex low-level code that requires cryptography expertise to write and maintain.
 
 **Our approach is different: We prioritized accessibility.**
 
@@ -793,7 +793,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Arbitrum Stylus Documentation](https://docs.arbitrum.io/stylus/stylus-gentle-introduction)
 - [circomlib Poseidon](https://github.com/iden3/circomlib)
 - [poseidon-rs](https://github.com/arnaucube/poseidon-rs)
-- [OpenZeppelin Stylus Benchmark](https://blog.openzeppelin.com/introducing-openzeppelin-contracts-for-stylus)
+- [OpenZeppelin Stylus Benchmark](https://www.openzeppelin.com/news/poseidon-go-brr-with-stylus-cryptographic-functions-are-18x-more-gas-efficient-via-rust-on-arbitrum)
 - [thirdweb Documentation](https://portal.thirdweb.com/)
 - [Foundry Book](https://book.getfoundry.sh/)
 
